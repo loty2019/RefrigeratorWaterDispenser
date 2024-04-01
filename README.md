@@ -3,7 +3,7 @@
 Schematics, code, [Web-app](https://github.com/loty2019/water-dispenser-web) and [3D files](https://github.com/loty2019/RefrigeratorWaterDispenser/tree/RelayWaterDispenser/STL%20files) all available.
 
 ## ℹ️ Overview
-This project aims to automate the refrigerator water dispenser. Originally located inside the fridge, it has been moved outside using a custom 3D-designed fountain. We first prototyped it on Arduino and then transitioned to the ESP32 platform with internet capabilities. The entire system now operates on a real-time database hosted on Firebase.
+This project aims to automate the refrigerator water dispenser. Originally located inside the fridge, it has been moved outside using a custom 3D-designed fountain. We first prototyped it on Arduino and then transitioned to the ESP32 platform with internet capabilities. The entire system now operates on a database hosted on Firebase.
 
 ### Purpose (Why should this exist?)
 
