@@ -9,12 +9,14 @@
 // ******* MODIFY FOR NEW WATER BOTTLE (USE OZ) *******
 const float LoreWHydroFlask = 24;
 const float LaciHydroFlask = 32;
+const float KayleighCup = 24;
 const float glassOfWater = 12;
 // *****************************************
 
 const char* textArray1[] = {
   "Press 1 for",
   "Press 2 for",
+  "Press 3 for",
   "Press 4 for",
   "Press 0 for",
   "Press # for",
@@ -23,6 +25,7 @@ const char* textArray1[] = {
 const char* textArray2[] = {
   "Lorenzo's Bottle",
   "Laci's Bottle",
+  "Kay's's Bottle",
   "Glass of Water",
   "Unlimited Fill",
   "Custom Oz Fill",
@@ -262,7 +265,35 @@ void checkIRInput() {
           }
         }
         break;
-      
+      case 0xF20DFF00: // 3 kay's water
+        doubleBeepSound();
+        if (getLocalTime(&timeinfo)) {
+          lcd.clear();
+          lcd.print("Loading...");
+          flowing(getSeconds(KayleighCup), KayleighCup);
+          lcd.print("Loading...");
+          if (firebase.setInt("/records/" + formatDate(&timeinfo) + "/kayleigh/" + formatTime(&timeinfo), KayleighCup)){
+            foreverTotal = firebase.getFloat("/records/forever_consumption");
+            foreverTotal += KayleighCup;
+            if (firebase.setFloat("/records/forever_consumption", foreverTotal)) {
+              //Serial.println("Pushed Success");
+              lcd.setCursor(0, 1);
+              lcd.print("Pushed Success");
+              delay(2000);
+            } else {
+              Serial.println("Pushed Failed Error#02");
+              lcd.print("Pushed Failed");
+              lcd.setCursor(0, 1);
+              lcd.print("Error#02");
+              delay(2000);
+            }
+          } else {
+            Serial.println("Pushed Failed Error#01");
+            lcd.print("Pushed Failed");
+            lcd.setCursor(0, 1);
+            lcd.print("Error#01");
+            delay(2000);
+          }
       case 0xF30CFF00: // 4
           doubleBeepSound();
           lcd.clear();
@@ -339,6 +370,35 @@ void checkIRInput() {
                         }
                         recieved = true;
                         break;
+                      case 0xF20DFF00: // 3 kay's water
+                        doubleBeepSound();
+                        if (getLocalTime(&timeinfo)) {
+                          lcd.clear();
+                          lcd.print("Loading...");
+                          flowing(getSeconds(KayleighCup), KayleighCup);
+                          lcd.print("Loading...");
+                          if (firebase.setInt("/records/" + formatDate(&timeinfo) + "/kayleigh/" + formatTime(&timeinfo), KayleighCup)){
+                            foreverTotal = firebase.getFloat("/records/forever_consumption");
+                            foreverTotal += KayleighCup;
+                            if (firebase.setFloat("/records/forever_consumption", foreverTotal)) {
+                              //Serial.println("Pushed Success");
+                              lcd.setCursor(0, 1);
+                              lcd.print("Pushed Success");
+                              delay(2000);
+                            } else {
+                              Serial.println("Pushed Failed Error#02");
+                              lcd.print("Pushed Failed");
+                              lcd.setCursor(0, 1);
+                              lcd.print("Error#02");
+                              delay(2000);
+                            }
+                          } else {
+                            Serial.println("Pushed Failed Error#01");
+                            lcd.print("Pushed Failed");
+                            lcd.setCursor(0, 1);
+                            lcd.print("Error#01");
+                            delay(2000);
+                          }
                     }
                     delay(500);
                     IR.resume();
